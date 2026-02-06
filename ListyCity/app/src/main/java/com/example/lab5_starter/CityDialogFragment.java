@@ -62,8 +62,7 @@ public class CityDialogFragment extends DialogFragment {
             city = null;}
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        return builder
-                .setView(view)
+        builder.setView(view)
                 .setTitle("City Details")
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("Continue", (dialog, which) -> {
@@ -74,7 +73,10 @@ public class CityDialogFragment extends DialogFragment {
                     } else {
                         listener.addCity(new City(title, year));
                     }
-                })
-                .create();
+                });
+        if (Objects.equals(tag, "City Details")) {
+            builder.setNeutralButton("Delete", (dialog, which) -> listener.deleteCity(city));
+        }
+        return builder.create();
     }
 }
